@@ -14,7 +14,7 @@ async def on_ready():
   print(bot.user.name)
   print(bot.user.id)
   print("Ready To Eat Cookies")
-  await bot.change_presence(activity=discord.Game(name="Eating Cookies :) || c-help"))
+  await bot.change_presence(activity=discord.Streaming(name="Cookies Recipe", url="https://www.twitch.tv/rick_astley"))
 
 snipe_message_author = {}
 snipe_message_content = {}
@@ -63,9 +63,29 @@ async def on_message(message):
       await message.channel.send(f'{message.author.mention} your answer is wrong. The correct answer is {answer}')
   await bot.process_commands(message)
 
+@bot.command()
+async def pressf(ctx, *, member: discord.Member=None, reason=None):
+    if member != None:
+      msg_ = await ctx.send(f"Everyone!! Let's pay our respects to {member.mention},Reason: {reason}, React on the message to pay your respect")
+      #await msg_.add_reaction('<:F_:713427539313557594>')
+      await msg_.add_reaction('<:red_cross:817435952943071302>')
+
+      def check(reaction, user):
+        #return msg.id == ctx.message.id and msg.reaction == "<:red_cross:817435952943071302>"
+        return str(reaction.emoji) == '<:red_cross:817435952943071302>' and user != bot.user
+
+      reaction, user = await bot.wait_for("reaction_add",check=check)
+      await ctx.send(f'{user.mention} has paid their respect')
+      return
+
+    elif member == None:
+      await ctx.send(f'{ctx.author.mention} Hey idiot, Mention the member you want to pay respect')
+
+
+
 for filename in os.listdir('./cogs'):
   if filename.endswith('.py'):
-    bot.load_extension(f'cogs.{filename[:-3]}')
+    bot.load_extension(f"cogs.{filename[:-3]}")
 
 keep_alive()
 bot.run(os.environ['DISCORD_TOKEN'])

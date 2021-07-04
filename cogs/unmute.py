@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import datetime
 
 class ModCommands(commands.Cog):
   def __init__(self, bot):
@@ -14,9 +15,15 @@ class ModCommands(commands.Cog):
     elif member != None:
         mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
         await member.remove_roles(mutedRole)
-        await ctx.send(f'Unmuted {member.mention} successfully!')
-        await member.send(
-            f'you have unmuted from {ctx.guild.name} by {ctx.author.name}')
+        embed = discord.Embed(
+            colour=discord.Colour.red(),
+            title='Member has been successfully unmuted',
+            description=f'{member.name} has been successfully unmuted by {ctx.author.name}'
+            )
+        embed.set_thumbnail(url=f"{member.avatar_url}")
+        embed.timestamp = datetime.datetime.utcnow()
+        await ctx.send(embed=embed)
+        await member.send(f'you have been unmuted from {ctx.guild.name}')
 
   @unmute.error
   async def unmute_error(self, ctx, error):

@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import datetime
 
 class ModCommands(commands.Cog):
   def __init__(self, bot):
@@ -18,7 +19,13 @@ class ModCommands(commands.Cog):
         user = ban_entry.user
         if (user.name, user.discriminator) == (member_name, member_discriminator):
           await ctx.guild.unban(user)
-          await ctx.send(f"{user.name}#{user.discriminator} has been unbanned by {ctx.author.name}")
+          embed = discord.Embed(
+              colour=discord.Colour.green(),
+              title='Member has been successfully unbanned',
+              description=f'{member.name} has been successfully unbanned by {ctx.author.name}'
+              )
+          embed.timestamp = datetime.datetime.utcnow()
+          await ctx.send(embed=embed)
           return
           
         else:
