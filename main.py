@@ -4,16 +4,20 @@ import os
 import datetime
 import random
 import asyncio
+import requests
 from keep_alive import keep_alive
 
 bot = commands.Bot(command_prefix = 'c-')
+bot.remove_command('help')
 
 @bot.event
 async def on_ready():
+  print("--------------------")
   print("Logged in as user")
   print(bot.user.name)
   print(bot.user.id)
   print("Ready To Eat Cookies")
+  print("--------------------")
   await bot.change_presence(activity=discord.Streaming(name="Cookies Recipe", url="https://www.twitch.tv/rick_astley"))
 
 snipe_message_author = {}
@@ -80,7 +84,6 @@ async def pressf(ctx, *, member: discord.Member=None, reason=None):
 
     elif member == None:
       await ctx.send(f'{ctx.author.mention} Hey idiot, Mention the member you want to pay respect')
-
 
 
 for filename in os.listdir('./cogs'):
