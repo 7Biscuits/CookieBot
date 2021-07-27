@@ -8,7 +8,7 @@ import requests
 from keep_alive import keep_alive
 
 bot = commands.Bot(command_prefix = 'c-')
-bot.remove_command('help')
+#bot.remove_command('help')
 
 @bot.event
 async def on_ready():
