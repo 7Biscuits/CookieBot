@@ -73,6 +73,7 @@ async def pressf(ctx, *, member: discord.Member=None, reason=None):
       msg_ = await ctx.send(f"Everyone!! Let's pay our respects to {member.mention},Reason: {reason}, React on the message to pay your respect")
       #await msg_.add_reaction('<:F_:713427539313557594>')
       await msg_.add_reaction('<:red_cross:817435952943071302>')
+      #await msg_.add_reaction(':regional_indicator_f:')
 
       def check(reaction, user):
         #return msg.id == ctx.message.id and msg.reaction == "<:red_cross:817435952943071302>"
