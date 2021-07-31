@@ -65,7 +65,14 @@ async def on_message(message):
       await message.channel.send(f'{message.author.mention} you guessed it right. the answer was {answer}')
     else:
       await message.channel.send(f'{message.author.mention} your answer is wrong. The correct answer is {answer}')
+  
+  if message.content.lower() == 'creeper':
+    await ctx.send('aww man!')
+  
+  if message.content.lower() == 'f':
+    await ctx.send("*f*")
   await bot.process_commands(message)
+  
 
 @bot.command()
 async def pressf(ctx, *, member: discord.Member=None, reason=None):
